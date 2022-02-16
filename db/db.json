@@ -87,32 +87,8 @@
       "opcionais": [
         "Salame"
       ],
-      "status": "Solicitado",
-      "id": 1
-    },
-    {
-      "nome": "Zeca",
-      "carne": "Alcatra",
-      "pao": "3 Queijos",
-      "opcionais": [
-        "Bacon",
-        "Salame",
-        "Tomate"
-      ],
-      "status": "Solicitado",
-      "id": 2
-    },
-    {
-      "nome": "João",
-      "carne": "Picanha",
-      "pao": "Parmesão e Orégano",
-      "opcionais": [
-        "Salame",
-        "Tomate",
-        "Pepino"
-      ],
       "status": "Em produção",
-      "id": 4
+      "id": 1
     },
     {
       "nome": "Joaquina",
@@ -121,22 +97,8 @@
       "opcionais": [
         "Tomate"
       ],
-      "status": "Solicitado",
+      "status": "Em produção",
       "id": 6
-    },
-    {
-      "nome": "Neymar",
-      "carne": "Picanha",
-      "pao": "Parmesão e Orégano",
-      "opcionais": [
-        "Bacon",
-        "Salame",
-        "Cebola roxa",
-        "Cheddar",
-        "Tomate"
-      ],
-      "status": "Solicitado",
-      "id": 7
     },
     {
       "nome": "Zenildo",
