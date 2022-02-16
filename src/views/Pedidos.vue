@@ -12,6 +12,6 @@ export default {
   name: "Pedidos",
   components: {
     Dashboard,
-  },
+  }
 };
 </script>

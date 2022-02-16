@@ -10,23 +10,30 @@
         <div>Ações:</div>
       </div>
       <div id="burger-table-rows">
-        <div class="burger-table-row" v-for="burger in burgers" :key="burger.id">
-          <div class="order-numb"> {{ burger.id }}</div>
-          <div>{{burger.nome}}</div>
-          <div>{{burger.pao}}</div>
-          <div>{{burger.carne}}</div>
+        <div
+          class="burger-table-row"
+          v-for="burger in burgers"
+          :key="burger.id"
+        >
+          <div class="order-numb">{{ burger.id }}</div>
+          <div>{{ burger.nome }}</div>
+          <div>{{ burger.pao }}</div>
+          <div>{{ burger.carne }}</div>
           <div>
             <ul>
               <li v-for="(opcional, index) in burger.opcionais" :key="index">
-                  {{ opcional }}
+                {{ opcional }}
               </li>
             </ul>
           </div>
           <div>
-            <select name="status" class="status">
+            <select name="status" class="status" @change="updateBurger($event, burger.id)"> 
               <option value="">Selecione</option>
+              <option v-for="s in status" :key="s.id" :value="s.tipo" :selected="burger.status == s.tipo">
+                  {{ s.tipo }}
+              </option>
             </select>
-            <button class="delete-btn">Cancelar</button>
+            <button class="delete-btn" @click="deleteBurger(burger.id)">Cancelar</button>
           </div>
         </div>
       </div>
@@ -55,18 +62,53 @@ export default {
 
       this.burgers = data; //Estou dizendo que burgers é igual a data, ou seja...Os dados que vieram na requisição, estou transformando no burgers que criei dentro de data(). Ou seja, o valor de "null" é trocado pelo valor que veio do servidor
 
-        console.log(this.burgers);
-
       //Resgatar os status
+    this.getStatus()
+    },
 
+    async getStatus(){
 
+        const req = await fetch("http://localhost:3000/status");
+
+        const data = await req.json();
+        
+        this.status = data;
+    },
+
+    async deleteBurger(id){
+
+        const req = await fetch(`http://localhost:3000/burgers/${id}`,{
+            method: "DELETE"
+        })
+
+        const res = await req.json();
+
+        //msg 
+
+        this.getPedidos()
+    },
+
+    async updateBurger(event, id){
+        
+        const option = event.target.value; // Com isso sabemos qual o status que o usuário está colocando
+
+        const dataJson = JSON.stringify({ status: option}); // Aqui estamos colocando em string para poder atualizar no banco JSON 
+
+        const req = await fetch(`http://localhost:3000/burgers/${id}`, {
+            method:"PATCH", //Funciona como o Update, mas atualiza somente o que enviamos, ou seja, somente o status
+            headers: {"Content-Type" : "application/json"},
+            body: dataJson
+        });
+
+        const res = await req.json();
+
+        console.log(res);
     }
   },
-    mounted(){
-        this.getPedidos(); // -> Estou chamando o getPedidos, para poder ter acesso aos burgers criados
-
-    }
-};
+  mounted() {
+    this.getPedidos(); // -> Estou chamando o getPedidos, para poder ter acesso aos burgers criados
+  }
+}
 </script>
 
 <style scoped>
